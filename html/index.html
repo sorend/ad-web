@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Website of Atmakuri Davidsen Family</title>
+  <link href="front.css" rel="stylesheet" type="text/css" />
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+</head>
+<body>
+  <div id="overlay">
+    <img src="family.png">
+    <div class="content">
+      <h1>Atmakuri Davidsen<br>family web-site</h1>
+      <a href="https://www.flickr.com/photos/sorend">All albums</a>
+      <a href="https://www.youtube.com/channel/UCPA_5p59ljYI6mBDHpwpqcA">All videos</a>
+      <a href="http://www.vimeo.com/sorend/videos">(Older videos)</a>
+    </div>
+  </div>
+  <div id="feed">
+    <span id="loading">Loading ...</span>
+  </div>
+  <div style="clear:both;"></div>
+  <div id="links">
+  </div>
+  <p style="text-align: right; color:#999;">
+	Copyright (c) 2010-2016 Atmakuri Davidsen
+  </p>
+  <script id="feed-item-template" type="text/x-handlebars-template">
+    <div class="fi">
+      <a href="{{ link }}">
+        <div class="{{ type }}" style="background-image: url({{thumb}})"></div>
+        <h3><span>{{ title }}</span></h3>
+      </a>
+    </div>
+  </script>
+  <script>
+   var html = $("#feed-item-template").html();
+   var template = Handlebars.compile(html);
+   var feed = $("#feed");
+   function render(data) {
+     $("#loading").remove();
+     $.each(data.data, function(idx, item) {
+       var rendered = template(item);
+       $(rendered).appendTo(feed);
+     });
+   }
+  </script>
+  <script src="https://vvv.atmakuridavidsen.com/feed.x?callback=render">
+  </script>
+</body>
+</html>
